@@ -1,6 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
+    <text name="Products">Products</text>
+    <text name="PepperMintDemo.Products.Products">Products</text>
+    <text name="Type">Type</text>
+    <text name="ProductsHeaderInfo">Products header info</text>
+    <text name="CreateNewProducts">Create new products</text>
+    <text name="EditProducts">Edit products</text>
+    <text name="DeleteProducts">Delete products</text>
+    <text name="{0}IsRequired">{0} is required.</text>
+    <text name="PickUser">Pick user</text>
+    <text name="View">View</text>
+    <text name="Details">Details</text>
+    <text name="Pick">Pick</text>
+    <text name="True">True</text>
+    <text name="False">False</text>
+    <text name="MinValue">Min</text>
+    <text name="MaxValue">Max</text>
     <text name="HomePage">Home page</text>
     <text name="AboutUs">About us</text>
     <text name="Administration">Administration</text>

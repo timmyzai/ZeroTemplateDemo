@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PepperMintDemo.EntityFrameworkCore;
 
@@ -10,9 +11,11 @@ using PepperMintDemo.EntityFrameworkCore;
 namespace PepperMintDemo.Migrations
 {
     [DbContext(typeof(PepperMintDemoDbContext))]
-    partial class PepperMintDemoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230426093714_product")]
+    partial class product
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

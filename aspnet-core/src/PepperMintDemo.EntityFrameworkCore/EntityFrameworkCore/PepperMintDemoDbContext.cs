@@ -1,4 +1,5 @@
-﻿using Abp.IdentityServer4vNext;
+﻿using PepperMintDemo.Products;
+using Abp.IdentityServer4vNext;
 using Abp.Zero.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PepperMintDemo.Authorization.Delegation;
@@ -16,6 +17,8 @@ namespace PepperMintDemo.EntityFrameworkCore
 {
     public class PepperMintDemoDbContext : AbpZeroDbContext<Tenant, Role, User, PepperMintDemoDbContext>, IAbpPersistedGrantDbContext
     {
+        public virtual DbSet<Products.Products> Products { get; set; }
+
         /* Define an IDbSet for each entity of the application */
 
         public virtual DbSet<BinaryObject> BinaryObjects { get; set; }
@@ -35,7 +38,7 @@ namespace PepperMintDemo.EntityFrameworkCore
         public virtual DbSet<SubscriptionPaymentExtensionData> SubscriptionPaymentExtensionDatas { get; set; }
 
         public virtual DbSet<UserDelegation> UserDelegations { get; set; }
-        
+
         public virtual DbSet<RecentPassword> RecentPasswords { get; set; }
 
         public PepperMintDemoDbContext(DbContextOptions<PepperMintDemoDbContext> options)

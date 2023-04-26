@@ -1,7 +1,17 @@
-import { CommonModule } from '@angular/common';
+﻿import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppCommonModule } from '@app/shared/common/app-common.module';
+import { ProductsComponent } from './products/products/products.component';
+import { ViewProductsModalComponent } from './products/products/view-products-modal.component';
+import { CreateOrEditProductsModalComponent } from './products/products/create-or-edit-products-modal.component';
+import { ProductsUserLookupTableModalComponent } from './products/products/products-user-lookup-table-modal.component';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { PaginatorModule } from 'primeng/paginator';
+import { EditorModule } from 'primeng/editor';
+import { InputMaskModule } from 'primeng/inputmask';import { FileUploadModule } from 'primeng/fileupload';
+import { TableModule } from 'primeng/table';
+
 import { UtilsModule } from '@shared/utils/utils.module';
 import { CountoModule } from 'angular2-counto';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -20,6 +30,12 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
 
 @NgModule({
     imports: [
+		FileUploadModule,
+		AutoCompleteModule,
+		PaginatorModule,
+		EditorModule,
+		InputMaskModule,		TableModule,
+
         CommonModule,
         FormsModule,
         ModalModule,
@@ -34,7 +50,12 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         PopoverModule.forRoot(),
         SubheaderModule,
     ],
-    declarations: [],
+    declarations: [
+		ProductsComponent,
+
+		ViewProductsModalComponent,
+		CreateOrEditProductsModalComponent,
+    ProductsUserLookupTableModalComponent,],
     providers: [
         { provide: BsDatepickerConfig, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerConfig },
         { provide: BsDaterangepickerConfig, useFactory: NgxBootstrapDatePickerConfigService.getDaterangepickerConfig },
