@@ -11,6 +11,11 @@
         public const string Pages_Products_Edit = "Pages.Products.Edit";
         public const string Pages_Products_Delete = "Pages.Products.Delete";
 
+        public const string Pages_Members = "Pages.Members";
+        public const string Pages_Members_Create = "Pages.Members.Create";
+        public const string Pages_Members_Edit = "Pages.Members.Edit";
+        public const string Pages_Members_Delete = "Pages.Members.Delete";
+
         //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
 
         public const string Pages = "Pages";

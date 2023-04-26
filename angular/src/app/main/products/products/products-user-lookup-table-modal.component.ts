@@ -46,7 +46,9 @@ export class ProductsUserLookupTableModalComponent extends AppComponentBase {
 
         if (this.primengTableHelper.shouldResetPaging(event)) {
             this.paginator.changePage(0);
-            return;
+            if (this.primengTableHelper.records && this.primengTableHelper.records.length > 0) {
+                return;
+            }
         }
 
         this.primengTableHelper.showLoadingIndicator();
@@ -57,7 +59,6 @@ export class ProductsUserLookupTableModalComponent extends AppComponentBase {
             this.primengTableHelper.getSkipCount(this.paginator, event),
             this.primengTableHelper.getMaxResultCount(this.paginator, event)
         ).subscribe(result => {
-            console.log("hello world");
             this.primengTableHelper.totalRecordsCount = result.totalCount;
             this.primengTableHelper.records = result.items;
             this.primengTableHelper.hideLoadingIndicator();

@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
   <texts>
+    <text name="PepperMintDemo.Members.Members">Members</text>
+    <text name="MembersHeaderInfo">Members header info</text>
+    <text name="CreateNewMembers">Create new members</text>
+    <text name="EditMembers">Edit members</text>
+    <text name="DeleteMembers">Delete members</text>
     <text name="Products">Products</text>
     <text name="PepperMintDemo.Products.Products">Products</text>
     <text name="Type">Type</text>

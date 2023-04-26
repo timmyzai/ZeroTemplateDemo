@@ -1,5 +1,6 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { MembersComponent } from './members/members/members.component';
 import { ProductsComponent } from './products/products/products.component';
 
 @NgModule({
@@ -8,6 +9,7 @@ import { ProductsComponent } from './products/products/products.component';
             {
                 path: '',
                 children: [
+                    { path: 'members/members', component: MembersComponent, data: { permission: 'Pages.Members' }  },
                     { path: 'products/products', component: ProductsComponent, data: { permission: 'Pages.Products' }  },
                     {
                         path: 'dashboard',

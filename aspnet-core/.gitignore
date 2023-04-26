@@ -135,5 +135,3 @@ src/PepperMintDemo.Web.Public/wwwroot/view-resources/Views/_Bundles
 src/PepperMintDemo.Web.Public/wwwroot/view-resources/**/*.min.*
 src/PepperMintDemo.Web.Public/wwwroot/Common/**/*.min.*
 src/PepperMintDemo.Web.Public/node_modules
-
-AspNetZeroRadTool

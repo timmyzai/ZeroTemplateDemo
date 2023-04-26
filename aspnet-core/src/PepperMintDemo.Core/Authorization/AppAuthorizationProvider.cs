@@ -35,6 +35,11 @@ namespace PepperMintDemo.Authorization
             products.CreateChildPermission(AppPermissions.Pages_Products_Edit, L("EditProducts"), multiTenancySides: MultiTenancySides.Host);
             products.CreateChildPermission(AppPermissions.Pages_Products_Delete, L("DeleteProducts"), multiTenancySides: MultiTenancySides.Host);
 
+            var members = pages.CreateChildPermission(AppPermissions.Pages_Members, L("Members"), multiTenancySides: MultiTenancySides.Host);
+            members.CreateChildPermission(AppPermissions.Pages_Members_Create, L("CreateNewMembers"), multiTenancySides: MultiTenancySides.Host);
+            members.CreateChildPermission(AppPermissions.Pages_Members_Edit, L("EditMembers"), multiTenancySides: MultiTenancySides.Host);
+            members.CreateChildPermission(AppPermissions.Pages_Members_Delete, L("DeleteMembers"), multiTenancySides: MultiTenancySides.Host);
+
             pages.CreateChildPermission(AppPermissions.Pages_DemoUiComponents, L("DemoUiComponents"));
 
             var administration = pages.CreateChildPermission(AppPermissions.Pages_Administration, L("Administration"));

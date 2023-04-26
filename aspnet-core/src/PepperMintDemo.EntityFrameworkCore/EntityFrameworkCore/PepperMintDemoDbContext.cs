@@ -1,4 +1,5 @@
-﻿using PepperMintDemo.Products;
+﻿using PepperMintDemo.Members;
+using PepperMintDemo.Products;
 using Abp.IdentityServer4vNext;
 using Abp.Zero.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,8 @@ namespace PepperMintDemo.EntityFrameworkCore
 {
     public class PepperMintDemoDbContext : AbpZeroDbContext<Tenant, Role, User, PepperMintDemoDbContext>, IAbpPersistedGrantDbContext
     {
+        public virtual DbSet<Members.Members> Members { get; set; }
+
         public virtual DbSet<Products.Products> Products { get; set; }
 
         /* Define an IDbSet for each entity of the application */

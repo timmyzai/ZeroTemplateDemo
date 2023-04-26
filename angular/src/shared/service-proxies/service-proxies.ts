@@ -6429,6 +6429,452 @@ export class LanguageServiceProxy {
 }
 
 @Injectable()
+export class MembersServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param nameFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, nameFilter: string | undefined, userNameFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetMembersForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/Members/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (nameFilter === null)
+            throw new Error("The parameter 'nameFilter' cannot be null.");
+        else if (nameFilter !== undefined)
+            url_ += "NameFilter=" + encodeURIComponent("" + nameFilter) + "&";
+        if (userNameFilter === null)
+            throw new Error("The parameter 'userNameFilter' cannot be null.");
+        else if (userNameFilter !== undefined)
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<PagedResultDtoOfGetMembersForViewDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<PagedResultDtoOfGetMembersForViewDto>;
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetMembersForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetMembersForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getMembersForView(id: string | undefined): Observable<GetMembersForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/Members/GetMembersForView?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetMembersForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMembersForView(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetMembersForViewDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetMembersForViewDto>;
+        }));
+    }
+
+    protected processGetMembersForView(response: HttpResponseBase): Observable<GetMembersForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetMembersForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getMembersForEdit(id: string | undefined): Observable<GetMembersForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Members/GetMembersForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetMembersForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMembersForEdit(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetMembersForEditOutput>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetMembersForEditOutput>;
+        }));
+    }
+
+    protected processGetMembersForEdit(response: HttpResponseBase): Observable<GetMembersForEditOutput> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetMembersForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditMembersDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Members/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: string | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Members/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param nameFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @return Success
+     */
+    getMembersToExcel(filter: string | undefined, nameFilter: string | undefined, userNameFilter: string | undefined): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/Members/GetMembersToExcel?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (nameFilter === null)
+            throw new Error("The parameter 'nameFilter' cannot be null.");
+        else if (nameFilter !== undefined)
+            url_ += "NameFilter=" + encodeURIComponent("" + nameFilter) + "&";
+        if (userNameFilter === null)
+            throw new Error("The parameter 'userNameFilter' cannot be null.");
+        else if (userNameFilter !== undefined)
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetMembersToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMembersToExcel(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<FileDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<FileDto>;
+        }));
+    }
+
+    protected processGetMembersToExcel(response: HttpResponseBase): Observable<FileDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FileDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllUserForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMembersUserLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/Members/GetAllUserForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllUserForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllUserForLookupTable(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<PagedResultDtoOfMembersUserLookupTableDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<PagedResultDtoOfMembersUserLookupTableDto>;
+        }));
+    }
+
+    protected processGetAllUserForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfMembersUserLookupTableDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMembersUserLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
+@Injectable()
 export class NotificationServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -17100,6 +17546,50 @@ export interface ICreateMassNotificationInput {
     targetNotifiers: string[] | undefined;
 }
 
+export class CreateOrEditMembersDto implements ICreateOrEditMembersDto {
+    name!: string;
+    userId!: number;
+    id!: string | undefined;
+
+    constructor(data?: ICreateOrEditMembersDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.userId = _data["userId"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditMembersDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditMembersDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["userId"] = this.userId;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface ICreateOrEditMembersDto {
+    name: string;
+    userId: number;
+    id: string | undefined;
+}
+
 export class CreateOrEditProductsDto implements ICreateOrEditProductsDto {
     name!: string;
     type!: ProductType;
@@ -20877,6 +21367,86 @@ export interface IGetMemberActivityOutput {
     memberActivities: MemberActivity[] | undefined;
 }
 
+export class GetMembersForEditOutput implements IGetMembersForEditOutput {
+    members!: CreateOrEditMembersDto;
+    userName!: string | undefined;
+
+    constructor(data?: IGetMembersForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.members = _data["members"] ? CreateOrEditMembersDto.fromJS(_data["members"]) : <any>undefined;
+            this.userName = _data["userName"];
+        }
+    }
+
+    static fromJS(data: any): GetMembersForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMembersForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["members"] = this.members ? this.members.toJSON() : <any>undefined;
+        data["userName"] = this.userName;
+        return data;
+    }
+}
+
+export interface IGetMembersForEditOutput {
+    members: CreateOrEditMembersDto;
+    userName: string | undefined;
+}
+
+export class GetMembersForViewDto implements IGetMembersForViewDto {
+    members!: MembersDto;
+    userName!: string | undefined;
+
+    constructor(data?: IGetMembersForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.members = _data["members"] ? MembersDto.fromJS(_data["members"]) : <any>undefined;
+            this.userName = _data["userName"];
+        }
+    }
+
+    static fromJS(data: any): GetMembersForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetMembersForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["members"] = this.members ? this.members.toJSON() : <any>undefined;
+        data["userName"] = this.userName;
+        return data;
+    }
+}
+
+export interface IGetMembersForViewDto {
+    members: MembersDto;
+    userName: string | undefined;
+}
+
 export class GetNotificationSettingsOutput implements IGetNotificationSettingsOutput {
     receiveNotifications!: boolean;
     notifications!: NotificationSubscriptionWithDisplayNameDto[] | undefined;
@@ -24056,6 +24626,90 @@ export interface IMemberActivity {
     profilePictureName: string | undefined;
 }
 
+export class MembersDto implements IMembersDto {
+    name!: string | undefined;
+    userId!: number;
+    id!: string;
+
+    constructor(data?: IMembersDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.userId = _data["userId"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): MembersDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new MembersDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["userId"] = this.userId;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface IMembersDto {
+    name: string | undefined;
+    userId: number;
+    id: string;
+}
+
+export class MembersUserLookupTableDto implements IMembersUserLookupTableDto {
+    id!: number;
+    displayName!: string | undefined;
+
+    constructor(data?: IMembersUserLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.displayName = _data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): MembersUserLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new MembersUserLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data;
+    }
+}
+
+export interface IMembersUserLookupTableDto {
+    id: number;
+    displayName: string | undefined;
+}
+
 export class MicrosoftExternalLoginProviderSettings implements IMicrosoftExternalLoginProviderSettings {
     clientId!: string | undefined;
     clientSecret!: string | undefined;
@@ -24912,6 +25566,54 @@ export interface IPagedResultDtoOfGetAllSendAttemptsOutput {
     items: GetAllSendAttemptsOutput[] | undefined;
 }
 
+export class PagedResultDtoOfGetMembersForViewDto implements IPagedResultDtoOfGetMembersForViewDto {
+    totalCount!: number;
+    items!: GetMembersForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetMembersForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetMembersForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetMembersForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetMembersForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IPagedResultDtoOfGetMembersForViewDto {
+    totalCount: number;
+    items: GetMembersForViewDto[] | undefined;
+}
+
 export class PagedResultDtoOfGetProductsForViewDto implements IPagedResultDtoOfGetProductsForViewDto {
     totalCount!: number;
     items!: GetProductsForViewDto[] | undefined;
@@ -25150,6 +25852,54 @@ export class PagedResultDtoOfMassNotificationUserLookupTableDto implements IPage
 export interface IPagedResultDtoOfMassNotificationUserLookupTableDto {
     totalCount: number;
     items: MassNotificationUserLookupTableDto[] | undefined;
+}
+
+export class PagedResultDtoOfMembersUserLookupTableDto implements IPagedResultDtoOfMembersUserLookupTableDto {
+    totalCount!: number;
+    items!: MembersUserLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfMembersUserLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(MembersUserLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfMembersUserLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfMembersUserLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IPagedResultDtoOfMembersUserLookupTableDto {
+    totalCount: number;
+    items: MembersUserLookupTableDto[] | undefined;
 }
 
 export class PagedResultDtoOfNameValueDto implements IPagedResultDtoOfNameValueDto {

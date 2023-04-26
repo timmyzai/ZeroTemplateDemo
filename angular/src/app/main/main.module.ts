@@ -2,6 +2,11 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppCommonModule } from '@app/shared/common/app-common.module';
+import { MembersComponent } from './members/members/members.component';
+import { ViewMembersModalComponent } from './members/members/view-members-modal.component';
+import { CreateOrEditMembersModalComponent } from './members/members/create-or-edit-members-modal.component';
+import { MembersUserLookupTableModalComponent } from './members/members/members-user-lookup-table-modal.component';
+
 import { ProductsComponent } from './products/products/products.component';
 import { ViewProductsModalComponent } from './products/products/view-products-modal.component';
 import { CreateOrEditProductsModalComponent } from './products/products/create-or-edit-products-modal.component';
@@ -51,6 +56,11 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         SubheaderModule,
     ],
     declarations: [
+		MembersComponent,
+
+		ViewMembersModalComponent,
+		CreateOrEditMembersModalComponent,
+    MembersUserLookupTableModalComponent,
 		ProductsComponent,
 
 		ViewProductsModalComponent,

@@ -1764,6 +1764,39 @@ namespace PepperMintDemo.Migrations
                     b.ToTable("AppFriendships");
                 });
 
+            modelBuilder.Entity("PepperMintDemo.Members.Members", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Members");
+                });
+
             modelBuilder.Entity("PepperMintDemo.MultiTenancy.Accounting.Invoice", b =>
                 {
                     b.Property<int>("Id")
@@ -2297,6 +2330,17 @@ namespace PepperMintDemo.Migrations
                     b.Navigation("DeleterUser");
 
                     b.Navigation("LastModifierUser");
+                });
+
+            modelBuilder.Entity("PepperMintDemo.Members.Members", b =>
+                {
+                    b.HasOne("PepperMintDemo.Authorization.Users.User", "UserFk")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserFk");
                 });
 
             modelBuilder.Entity("PepperMintDemo.MultiTenancy.Payments.SubscriptionPayment", b =>

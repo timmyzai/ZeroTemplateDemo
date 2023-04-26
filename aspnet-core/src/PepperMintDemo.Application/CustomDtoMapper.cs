@@ -1,4 +1,6 @@
-﻿using PepperMintDemo.Products.Dtos;
+﻿using PepperMintDemo.Members.Dtos;
+using PepperMintDemo.Members;
+using PepperMintDemo.Products.Dtos;
 using PepperMintDemo.Products;
 using Abp.Application.Editions;
 using Abp.Application.Features;
@@ -50,6 +52,8 @@ namespace PepperMintDemo
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditMembersDto, Members.Members>().ReverseMap();
+            configuration.CreateMap<MembersDto, Members.Members>().ReverseMap();
             configuration.CreateMap<CreateOrEditProductsDto, Products.Products>().ReverseMap();
             configuration.CreateMap<ProductsDto, Products.Products>().ReverseMap();
             //Inputs

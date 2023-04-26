@@ -83,7 +83,12 @@ export class ProductsComponent extends AppComponentBase {
     }
 
     createProducts(): void {
-        this.createOrEditProductsModal.show();        
+        
+			this.createOrEditProductsModal.show();
+			if (this.createOrEditProductsModal.saving) {
+			this.reloadPage();
+			}
+			        
     }
 
 
