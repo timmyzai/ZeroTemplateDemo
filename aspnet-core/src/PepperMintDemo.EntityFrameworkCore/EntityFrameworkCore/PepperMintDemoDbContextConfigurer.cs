@@ -7,12 +7,12 @@ namespace PepperMintDemo.EntityFrameworkCore
     {
         public static void Configure(DbContextOptionsBuilder<PepperMintDemoDbContext> builder, string connectionString)
         {
-            builder.UseSqlServer(connectionString);
+            builder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
         }
 
         public static void Configure(DbContextOptionsBuilder<PepperMintDemoDbContext> builder, DbConnection connection)
         {
-            builder.UseSqlServer(connection);
+            builder.UseMySql(connection, ServerVersion.AutoDetect(connection.ConnectionString));
         }
     }
 }
